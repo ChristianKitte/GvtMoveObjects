@@ -17,7 +17,7 @@ Informatics**
 
 [zur Webseite](https://gvt.ckitte.de/ea6/)
 
-Im Rahmen der fünften Einsendeaufgabe sollen vier Kugeln interaktiv durch einen Torus fliegen. Dabei bewegen sich die Kugeln kontinuierlich auf Kreisbahnen so,
+Im Rahmen der sechsten Einsendeaufgabe sollen vier Kugeln interaktiv durch einen Torus fliegen. Dabei bewegen sich die Kugeln kontinuierlich auf Kreisbahnen so,
 dass sie sich nie berühren. 
 
 Entweder werden die Kugeln durch jedes Drücken der Taste k ein Stück weiter bewegen oder die Bewegung erfolgt automatisch und kann ein- und ausgeschaltet werden.

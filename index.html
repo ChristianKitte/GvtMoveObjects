@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>EA 6</title>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body onload="app.start()">
+
+<div id="layout">
+    <div id="caption">
+        <h1>EA 6 - Bewegte Objekte</h1>
+        <h4>Im Rahmen der sechsten Einsendeaufgabe sollen vier Kugeln interaktiv durch einen Torus fliegen. </h4>
+
+        <p>Dabei bewegen sich die Kugeln kontinuierlich auf Kreisbahnen so, dass sie sich nie berühren. Linien
+            sollen entweder eingeblendet oder optional einblendbar sein. Der gesamte Code kann auf
+            <a href="https://github.com/ChristianKitte/GvtCameraMovement" target="_blank">
+                GitHub eingesehen werden
+            </a>.
+            Als externe Bibliothek zur Berechnung der Matrizen und Vektoren kommt glMatrix
+            <a href="https://glmatrix.net/" target="_blank">
+                zum Einsatz.
+            </a>
+        </p>
+
+        <p>
+            Mit Hilfe des Buttons kann die Anwendung zurückgesetzt werden. Mit Hilfe der oberen Checkbox kann zwischen
+            der kontinuierlichen und schrittweisen Bewegung (mit Hilfe der Taste K) umgeschaltet werden. Die untere
+            Checkbox kontrolliert die Anzeige der Linien.
+        </p>
+
+        <p>
+            Folgende Tastenaktionen sind möglich:
+        </p>
+        <ol>
+            <li>Die Kamera kann mit den <em><b>Pfeiltasten</b></em> um die Szene bewegt werden</li>
+            <li>Die <em><b>Tasten o, p, f</b></em> schalten die Ansicht auf orthogonal, perspektive und frustum</li>
+            <li>Die <em><b>Tasten w, s, a, d</b></em> bewegen die Kamera nach oben, unten, rechts und links</li>
+            <li>Die <em><b>Tasten z, Z (shift-z)</b></em> zoomen in bzw. aus dem Bild heraus</li>
+            <li>Die <em><b>Tasten n, N (shift-n)</b></em> verringern bzw. vergrößern den Radius beim Kreisen der Kamera
+            </li>
+            <li>Die <em><b>Taste k</b></em> führt einen einzelnen Bewegungsschritt aus, wenn die kontinuierliche
+                Bewegung deaktiviert wurde
+            </li>
+        </ol>
+    </div>
+
+    <div id="buttonBar">
+        <button id="figure0" class="btn btn-primary">Anwendung zurück setzen</button>
+        <p id="projection_text">Projektionstyp: </p>
+    </div>
+
+    <div id="checkBox">
+        <div>
+            <input type="checkbox" id="perform-move" name="perform-move" value="1" checked="checked">
+            <label for="perform-move">Kontinuierlich bewegen</label>
+        </div>
+        <div>
+            <input type="checkbox" id="show-line" name="show-line" value="1" checked="checked">
+            <label for="show-line">Linien anzeigen</label>
+        </div>
+    </div>
+
+    <canvas id="canvas" width="1000px" height="1000px"></canvas>
+</div>
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+
+<script src="script/Modules/mod_shader.js"></script>
+<script src="script/Modules/mod_webgl.js"></script>
+<script src="script/configure.js"></script>
+
+<script src="script/extern/gl-matrix.js"></script>
+
+<script src="script/Modelle/mod_cylinder.js"></script>
+<script src="script/Modelle/mod_kegel.js"></script>
+<script src="script/Modelle/mod_sphere.js"></script>
+<script src="script/Modelle/mod_torus.js"></script>
+<script src="script/Modelle/mod_recursive_sphere.js"></script>
+<script src="script/app.js"></script>
+<script src="script/startup.js"></script>
+
+</body>
+</html>
