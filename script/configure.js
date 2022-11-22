@@ -21,6 +21,12 @@ var currentRecursionDeep = 0;
 var showLine = document.getElementById("show-line").checked;
 
 /**
+ * Die Einstellung zur durchführung der Rotation
+ * @type {boolean}
+ */
+var performMove = document.getElementById("perform-move").checked;
+
+/**
  * Der Infotext für den verwendeten Projektionstyp
  * @type {HTMLElement}
  */
@@ -35,7 +41,7 @@ projektionsText.innerText = "Projektionstyp: Orthogonal";
  * Setzt den Wert für die Anzeige des Gittermodells und startet das Neuzeichnen
  */
 document.getElementById("perform-move").onchange = () => {
-    showLine = document.getElementById("perform-move").checked;
+    performMove = document.getElementById("perform-move").checked;
     app.start();
 }
 

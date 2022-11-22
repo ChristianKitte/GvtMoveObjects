@@ -11,6 +11,12 @@ var app = (function () {
     let models = [];
 
     /**
+     * Zeitspanne zwischen Animation in Millisekunde
+     * @type {number}
+     */
+    let animationRate = 500;
+
+    /**
      * Definiert eine virtuelle Kamera
      * @type {{eye: number[], distance: number, lrtb: number, vMatrix: mat4, center: number[], projectionType: string, up: number[], fovy: number, pMatrix: mat4, zAngle: number}}
      */
@@ -58,7 +64,7 @@ var app = (function () {
 
         switch (keyName) {
             case "ArrowUp": // ==> nach oben über die Szene
-                //camera.zAngle += Math.PI / 36;
+                            //camera.zAngle += Math.PI / 36;
                 camera.yAngle += deltaRotate;
                 //camera.eye
                 render();
@@ -149,10 +155,6 @@ var app = (function () {
                 camera.distance--;
                 render();
                 break;
-            case "k":
-                models[0].rotate[0] += Math.PI;
-                render();
-                break;
         }
 
 
@@ -184,10 +186,33 @@ var app = (function () {
      */
     function initModels() {
         if (activeModel === 0) {
-            createModel("modSphere", [0, 0, 0], [0, 0, 0], [0.3, 0.3, 0.3], 10, [0.0, 0.0, 0.0], Math.PI, 32);
-            createModel("modSphere", [-1, 0, 0], [-1, 0, 0], [0.2, 0.2, 0.2], 0, [0.0, 0.0, 0.0], Math.PI, 32);
-            createModel("modSphere", [1, 1, -0.5], [1, 1, -0.5], [0.4, 0.4, 0.4], 0, [0.0, 0.0, 0.0], Math.PI, 32);
-            createModel("modTorus", [0, 0, 0], [1, -1, 0], [1, 1, 1]);
+            createModel(
+                "modSphere",
+                [0, 0, 0], [0, 0, 0], [0.3, 0.3, 0.3],
+                Math.PI / 1200, Math.PI / 640.0,
+                [40.0, -20.0, 0.0], [500.0, 500.0], Math.PI / 1200,
+                false, false);
+
+            createModel(
+                "modSphere",
+                [-1, 0, 0], [-1, 0, 0], [0.2, 0.2, 0.2],
+                Math.PI / 1200, Math.PI / 640.0,
+                [40.0, -20.0, 0.0], [500.0, 500.0], Math.PI / 1200,
+                false, false);
+
+            createModel(
+                "modSphere",
+                [1, 1, 0], [1, 1, 0], [0.4, 0.4, 0.4],
+                Math.PI / 1200, Math.PI / 640.0,
+                [3.0, 0.5, 0.0], [2000.0, 2000.0], Math.PI / 1200,
+                true, false)
+
+            createModel(
+                "modTorus",
+                [0, 0, 0], [1, -1, 0], [1, 1, 1],
+                0, Math.PI / 2640.0,
+                [0.0, 0.0, 0.0], [0.0, 0.0], 0.0,
+                false, true)
         }
     }
 
@@ -200,11 +225,11 @@ var app = (function () {
      * @param rotate Die Rotation (3D Vektor)
      * @param scale Die Skalierung (3D Vektor)
      */
-    function createModel(modelName, translate, rotate, scale, radiusCircle, centerCircle, speedCircle) {
+    function createModel(modelName, translate, rotate, scale, rotateIni, rotateSpeed, orbitCenter, orbitRadius, orbitSpeed, animated, rotated) {
         let model = {};
 
         initDataAndBuffers(model, modelName);
-        initTransformations(model, translate, rotate, scale, radiusCircle, centerCircle, speedCircle);
+        initTransformations(model, translate, rotate, scale, rotateIni, rotateSpeed, orbitCenter, orbitRadius, orbitSpeed, animated, rotated);
 
         models.push(model);
     }
@@ -253,13 +278,25 @@ var app = (function () {
      * @param rotate Wert für die Rotation
      * @param scale Wert für die Skalierung
      */
-    function initTransformations(model, translate, rotate, scale, radiusCircle, centerCircle, speedCircle) {
+    function initTransformations(model, translate, rotate, scale, rotateIni, rotateSpeed, orbitCenter, orbitRadius, orbitSpeed, animated, rotated) {
         model.translate = translate;
+
         model.rotate = rotate;
+        model.rotateIni = rotateIni;
+        model.rotateSpeed = rotateSpeed;
+
         model.scale = scale;
-        model.radiusCircle = radiusCircle;
-        model.centerCircle = centerCircle;
-        model.speedCircle = speedCircle;
+
+        model.orbitCenter = orbitCenter;
+        model.orbitRadius = orbitRadius;
+        model.orbitSpeed = orbitSpeed;
+
+        model.animated = animated;
+        model.rotated = rotated;
+
+        model.degreeAlt = 0.0;
+        model.xAlt = 0.0;
+        model.yAlt = 0.0;
 
         model.modelMatrix = glMatrix.mat4.create();
         model.viewMatrix = glMatrix.mat4.create();
@@ -341,48 +378,69 @@ var app = (function () {
         let mMatrix = model.modelMatrix;
 
         glMatrix.mat4.identity(mMatrix);
+
         // Scale
         glMatrix.mat4.scale(mMatrix, mMatrix, model.scale);
+
         // Rotate
-        glMatrix.mat4.rotate(mMatrix, mMatrix, rotateVal, model.rotate);
+        if (model.rotated) {
+            model.rotateIni += model.rotateSpeed;
+            glMatrix.mat4.rotate(mMatrix, mMatrix, model.rotateIni, model.rotate);
+        } else { // einmaliges Drehen um die in rotate definierte Achse
+            glMatrix.mat4.rotate(mMatrix, mMatrix, model.rotateIni, model.rotate);
+        }
+
         // Translate.
-        glMatrix.mat4.translate(mMatrix, mMatrix, model.translate);
+        //glMatrix.mat4.translate(mMatrix, mMatrix, model.translate);
 
-        if (model.radiusCircle === 10) {
-            w += dw;
+        /*
+                    w += dw;
 
-            let x = (-40 / Math.cos(w)) * Math.cos(w) + 40;
-            let y = Math.sin(w) * Math.sin(w) - 20;
+            let x = r * Math.cos(w) + 40;
+            let y = r * Math.sin(w) - 20;
             let xx = x - xalt;
             let yy = y - yalt;
 
             glMatrix.mat4.translate(mMatrix, mMatrix, [xx, yy, 0]);
             xalt = x;
             yalt = y;
+         */
+
+        if (model.animated) {
+            glMatrix.mat4.translate(mMatrix, mMatrix, model.translate);
+            model.degreeAlt += model.orbitSpeed;
+
+            let x = model.orbitRadius[0] * Math.cos(model.degreeAlt) - model.orbitCenter[0];
+            let y = model.orbitRadius[1] * Math.sin(model.degreeAlt) - model.orbitCenter[1];
+
+            let newX = x - model.xAlt;
+            let newY = y - model.yAlt;
+
+            glMatrix.mat4.translate(mMatrix, mMatrix, [newX + model.orbitCenter[0], newY + model.orbitCenter[1], 0.0]);
+
+            model.xAlt = x;
+            model.yAlt = y;
+        } else {
+            glMatrix.mat4.translate(mMatrix, mMatrix, model.translate);
         }
 
         WebGlInstance.webGL.gl.uniformMatrix4fv(WebGlInstance.webGL.program.modelMatrix, false, mMatrix);
     }
 
-    let xalt = 0.0;
-    let yalt = 0.0;
-    let w = 0.0;
-    let dw = Math.PI / 640;
-    let rotateVal = 0;
-
+    /**
+     * Neuer Animationsschritt
+     */
     function rotate() {
         if (models.length > 0) {
-            rotateVal += Math.PI / 600;
             render();
-            setInterval(rotate, 500);
-        } else {
-            //setInterval(rotate, 500);
+            setInterval(rotate, animationRate);
         }
     }
 
-    setInterval(rotate, 500);
-
-    //window.requestAnimationFrame(rotate);
+    /**
+     * Start der Animation
+     */
+    setInterval(rotate, animationRate);
 
     /**
      * Gibt das übergebene Modell aus
@@ -414,7 +472,6 @@ var app = (function () {
      * Die offengelegte API
      */
     return {
-        start: start,
-        rotate: rotate
+        start: start
     }
 }());
