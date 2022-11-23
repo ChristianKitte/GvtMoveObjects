@@ -2,10 +2,13 @@ scale                       x, y sind mit 100 vorgescaled !
 rotate                      beim Rotieren hat Scale keinen Einfluss
 translate                   geht von Mittelpunkt zu Mittelpunkt
 
-rotationsWinkel             beim Rotieren hat Scale keinen Einfluss
+rotateBaseDegree            Angabe der einmaligen Drehung auf der X, Y, Z Achse
 
-RotateCenter
-RotateXAxis
-RotateYAxis
-RotateSpeed
+turningDegree               Angabe der dauernden Drehung im Bogenmaß auf der X, Y, Z Achse, beim
+                            Rotieren hat Scale keinen Einfluss. (für turning = true)
+orbitCenter                 Zentrum der Drehung
+orbitRadius                 Radius auf der X, Y, Z Achse (Mittelpunkt bezogen)
+orbitSpeed                  Als Winkelgrad im Bogenmaß
 
+performTurning              kontinuierlich drehen (turningDegree)
+performOrbit                kontinuierlich Bewegen (orbit...)

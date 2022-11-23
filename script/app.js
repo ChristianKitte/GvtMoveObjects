@@ -64,7 +64,7 @@ var app = (function () {
 
         switch (keyName) {
             case "ArrowUp": // ==> nach oben über die Szene
-                            //camera.zAngle += Math.PI / 36;
+                //camera.zAngle += Math.PI / 36;
                 camera.yAngle += deltaRotate;
                 //camera.eye
                 render();
@@ -184,12 +184,47 @@ var app = (function () {
      * zur Kollektion models hinhzufügt.
      */
     function initModels() {
-        if (activeModel === 0) {
+        if (activeModel === 0) {/*
             createModel(
                 "modSphere",
                 [0, 0, 0], [0, 0, 0], [0.3, 0.3, 0.3],
                 Math.PI / 1200, Math.PI / 640.0,
                 [40.0, -20.0, 0.0], [500.0, 500.0], Math.PI / 1200,
+                false, false);
+
+            createModel(
+                "modSphere",
+                [0, 0, 0], [0, 0, 0], [0.3, 0.3, 0.3],
+                Math.PI / 1200, Math.PI / 640.0,
+                [40.0, -20.0, 0.0], [500.0, 500.0], Math.PI / 1200,
+                false, false);
+
+            createModel(
+                "modSphere",
+                [-1.4, 0, 0], [0, 1, 0], [0.2, 0.2, 0.2],
+                Math.PI / 2.5, Math.PI / 640.0,
+                [-3.0, -3.0, -3.0], [150.0, 550.0], Math.PI / 200,
+                true, false);
+
+            createModel(
+                "modSphere",
+                [1, 0.5, 0], [1, 1, 0], [0.4, 0.4, 0.4],
+                Math.PI / 1200, Math.PI / 640.0,
+                [4.0, 0.1, 0.1], [440.0, 500.0], Math.PI / 300,
+                true, false)
+
+            createModel(
+                "modTorus",
+                [0, 0, 0], [1, -1, 0], [1, 1, 1],
+                0, Math.PI / 1000.0,
+                [0.0, 0.0, 0.0], [0.0, 0.0], 0.0,
+                false, true)*/
+
+            createModel(
+                "modSphere",
+                [0, 0, 0], [0, 0, 0], [0.3, 0.3, 0.3],
+                Math.PI / 640.0,
+                [500.0, 500.0,0.0], [40.0, -20.0, 0.0], , Math.PI / 1200,
                 false, false);
 
             createModel(
@@ -231,7 +266,7 @@ var app = (function () {
      * @param rotate Die Rotation (3D Vektor)
      * @param scale Die Skalierung (3D Vektor)
      */
-    function createModel(modelName, translate, rotate, scale, rotateIni, rotateSpeed, orbitCenter, orbitRadius, orbitSpeed, animated, rotated) {
+    function createModel(modelName, translate, rotate, scale, rotateDegree, rotateCenter, rotateRadius, rotateSpeed, turning, animated) {
         let model = {};
 
         initDataAndBuffers(model, modelName);
@@ -239,6 +274,15 @@ var app = (function () {
 
         models.push(model);
     }
+    /*
+    function createModel(modelName, translate, rotate, scale, rotateIni, rotateSpeed, orbitCenter, orbitRadius, orbitSpeed, animated, rotated) {
+        let model = {};
+
+        initDataAndBuffers(model, modelName);
+        initTransformations(model, translate, rotate, scale, rotateIni, rotateSpeed, orbitCenter, orbitRadius, orbitSpeed, animated, rotated);
+
+        models.push(model);
+    }*/
 
     /**
      * Initiiert die Daten und Buffer. Hierbei definiert der Modellname ein Modell anhand seiner Klasse. Dies Modell
@@ -473,14 +517,6 @@ var app = (function () {
             }
         }
     }
-
-    /**
-     * Start der Animation
-     * http://www.javascriptkit.com/javatutors/requestanimationframe.shtml
-     * https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-     */
-    //setInterval(rotate, animationRate);
-    //window.requestAnimationFrame(rotate);
 
     /**
      * Die offengelegte API
