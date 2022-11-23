@@ -15,6 +15,12 @@ var activeModel = 0;
 var showLine = document.getElementById("show-line").checked;
 
 /**
+ * Die Einstellung zur Ausführung der Animation
+ * @type {boolean}
+ */
+var animateScene = document.getElementById("animate-scene").checked;
+
+/**
  * Der Infotext für den verwendeten Projektionstyp
  * @type {HTMLElement}
  */
@@ -47,5 +53,17 @@ window.cancelAnimationFrame = window.cancelAnimationFrame
  */
 document.getElementById("show-line").onchange = () => {
     showLine = document.getElementById("show-line").checked;
-    app.start();
+}
+
+/**
+ * Setzt den Wert für die Ausführung der Animation
+ */
+document.getElementById("animate-scene").onchange = () => {
+    animateScene = document.getElementById("animate-scene").checked;
+
+    if (animateScene) {
+        window.requestAnimationFrame(app.rotate);
+    } else {
+        window.cancelAnimationFrame(app.rotate);
+    }
 }

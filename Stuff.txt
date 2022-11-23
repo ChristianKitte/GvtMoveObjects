@@ -1,0 +1,11 @@
+scale                       x, y sind mit 100 vorgescaled !
+rotate                      beim Rotieren hat Scale keinen Einfluss
+translate                   geht von Mittelpunkt zu Mittelpunkt
+
+rotationsWinkel             beim Rotieren hat Scale keinen Einfluss
+
+RotateCenter
+RotateXAxis
+RotateYAxis
+RotateSpeed
+

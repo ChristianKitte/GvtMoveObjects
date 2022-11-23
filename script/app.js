@@ -64,7 +64,7 @@ var app = (function () {
 
         switch (keyName) {
             case "ArrowUp": // ==> nach oben über die Szene
-                //camera.zAngle += Math.PI / 36;
+                            //camera.zAngle += Math.PI / 36;
                 camera.yAngle += deltaRotate;
                 //camera.eye
                 render();
@@ -185,6 +185,13 @@ var app = (function () {
      */
     function initModels() {
         if (activeModel === 0) {
+            createModel(
+                "modSphere",
+                [0, 0, 0], [0, 0, 0], [0.3, 0.3, 0.3],
+                Math.PI / 1200, Math.PI / 640.0,
+                [40.0, -20.0, 0.0], [500.0, 500.0], Math.PI / 1200,
+                false, false);
+
             createModel(
                 "modSphere",
                 [0, 0, 0], [0, 0, 0], [0.3, 0.3, 0.3],
@@ -385,7 +392,7 @@ var app = (function () {
         if (model.rotated) {
             model.rotateIni += model.rotateSpeed;
             glMatrix.mat4.rotate(mMatrix, mMatrix, model.rotateIni, model.rotate);
-        } else { // einmaliges Drehen um die in rotate definierte Achse
+        } else if (animateScene) { // einmaliges Drehen um die in rotate definierte Achse
             glMatrix.mat4.rotate(mMatrix, mMatrix, model.rotateIni, model.rotate);
         }
 
@@ -460,7 +467,10 @@ var app = (function () {
         if (models.length > 0) {
             render();
             //setInterval(rotate, animationRate);
-            window.requestAnimationFrame(rotate);
+
+            if (animateScene) {
+                window.requestAnimationFrame(rotate);
+            }
         }
     }
 
@@ -470,12 +480,13 @@ var app = (function () {
      * https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
      */
     //setInterval(rotate, animationRate);
-    window.requestAnimationFrame(rotate);
+    //window.requestAnimationFrame(rotate);
 
     /**
      * Die offengelegte API
      */
     return {
-        start: start
+        start: start,
+        rotate: rotate
     }
 }());
