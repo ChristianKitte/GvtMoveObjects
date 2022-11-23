@@ -64,7 +64,7 @@ var app = (function () {
 
         switch (keyName) {
             case "ArrowUp": // ==> nach oben über die Szene
-                            //camera.zAngle += Math.PI / 36;
+                //camera.zAngle += Math.PI / 36;
                 camera.yAngle += deltaRotate;
                 //camera.eye
                 render();
@@ -157,7 +157,6 @@ var app = (function () {
                 break;
         }
 
-
     }, false);
 
     /**
@@ -195,22 +194,22 @@ var app = (function () {
 
             createModel(
                 "modSphere",
-                [-1, 0, 0], [-1, 0, 0], [0.2, 0.2, 0.2],
-                Math.PI / 1200, Math.PI / 640.0,
-                [40.0, -20.0, 0.0], [500.0, 500.0], Math.PI / 1200,
-                false, false);
+                [-1.4, 0, 0], [0, 1, 0], [0.2, 0.2, 0.2],
+                Math.PI / 2.5, Math.PI / 640.0,
+                [-3.0, -3.0, -3.0], [150.0, 550.0], Math.PI / 200,
+                true, false);
 
             createModel(
                 "modSphere",
-                [1, 1, 0], [1, 1, 0], [0.4, 0.4, 0.4],
+                [1, 0.5, 0], [1, 1, 0], [0.4, 0.4, 0.4],
                 Math.PI / 1200, Math.PI / 640.0,
-                [3.0, 0.5, 0.0], [2000.0, 2000.0], Math.PI / 1200,
+                [4.0, 0.1, 0.1], [440.0, 500.0], Math.PI / 300,
                 true, false)
 
             createModel(
                 "modTorus",
                 [0, 0, 0], [1, -1, 0], [1, 1, 1],
-                0, Math.PI / 2640.0,
+                0, Math.PI / 1000.0,
                 [0.0, 0.0, 0.0], [0.0, 0.0], 0.0,
                 false, true)
         }
@@ -408,6 +407,7 @@ var app = (function () {
 
         if (model.animated) {
             glMatrix.mat4.translate(mMatrix, mMatrix, model.translate);
+
             model.degreeAlt += model.orbitSpeed;
 
             let x = model.orbitRadius[0] * Math.cos(model.degreeAlt) - model.orbitCenter[0];
@@ -426,21 +426,6 @@ var app = (function () {
 
         WebGlInstance.webGL.gl.uniformMatrix4fv(WebGlInstance.webGL.program.modelMatrix, false, mMatrix);
     }
-
-    /**
-     * Neuer Animationsschritt
-     */
-    function rotate() {
-        if (models.length > 0) {
-            render();
-            setInterval(rotate, animationRate);
-        }
-    }
-
-    /**
-     * Start der Animation
-     */
-    setInterval(rotate, animationRate);
 
     /**
      * Gibt das übergebene Modell aus
@@ -467,6 +452,25 @@ var app = (function () {
             WebGlInstance.webGL.gl.drawElements(WebGlInstance.webGL.gl.LINES, model.ibo.numerOfEmements, WebGlInstance.webGL.gl.UNSIGNED_SHORT, 0);
         }
     }
+
+    /**
+     * Neuer Animationsschritt
+     */
+    function rotate() {
+        if (models.length > 0) {
+            render();
+            //setInterval(rotate, animationRate);
+            window.requestAnimationFrame(rotate);
+        }
+    }
+
+    /**
+     * Start der Animation
+     * http://www.javascriptkit.com/javatutors/requestanimationframe.shtml
+     * https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+     */
+    //setInterval(rotate, animationRate);
+    window.requestAnimationFrame(rotate);
 
     /**
      * Die offengelegte API

@@ -9,22 +9,10 @@
 var activeModel = 0;
 
 /**
- * Der Infotext für die Rekursiontiefe
- * @type {number}
- */
-var currentRecursionDeep = 0;
-
-/**
  * Die Einstellung zur Anzeige des Gittergerüstes
  * @type {boolean}
  */
 var showLine = document.getElementById("show-line").checked;
-
-/**
- * Die Einstellung zur durchführung der Rotation
- * @type {boolean}
- */
-var performMove = document.getElementById("perform-move").checked;
 
 /**
  * Der Infotext für den verwendeten Projektionstyp
@@ -34,29 +22,30 @@ var projektionsText = document.getElementById("projection_text");
 projektionsText.innerText = "Projektionstyp: Orthogonal";
 
 //*************************************************************************
+// 3th Party
+//*************************************************************************
+
+window.requestAnimationFrame = window.requestAnimationFrame
+    || window.mozRequestAnimationFrame
+    || window.msRequestAnimationFrame
+    || function (f) {
+        return setTimeout(f, 1000 / 60)
+    } // simulate calling code 60
+
+window.cancelAnimationFrame = window.cancelAnimationFrame
+    || window.mozCancelAnimationFrame
+    || function (requestID) {
+        clearTimeout(requestID)
+    } //fall back
+
+//*************************************************************************
 // UI Handler
 //*************************************************************************
 
 /**
  * Setzt den Wert für die Anzeige des Gittermodells und startet das Neuzeichnen
  */
-document.getElementById("perform-move").onchange = () => {
-    performMove = document.getElementById("perform-move").checked;
-    app.start();
-}
-
-/**
- * Setzt den Wert für die Anzeige des Gittermodells und startet das Neuzeichnen
- */
 document.getElementById("show-line").onchange = () => {
     showLine = document.getElementById("show-line").checked;
-    app.start();
-}
-
-/**
- * Zeigt die 1.Figur an
- */
-document.getElementById("figure0").onclick = () => {
-    activeModel = 0;
     app.start();
 }

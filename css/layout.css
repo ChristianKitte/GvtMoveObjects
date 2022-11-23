@@ -20,7 +20,7 @@ a {
     background-color: #f8f8f8;
 }
 
-#buttonBar {
+#infoBar {
     margin-top: 2px;
     padding: 1%;
     border-radius: 20px;
@@ -28,19 +28,14 @@ a {
     background-color: #f8f8f8;
 }
 
-#buttonBar > button {
+#infoBar > button {
     margin: 3px;
     width: 15%;
 }
 
-#buttonBar > p, a {
+#infoBar > p, a {
     margin-left: 5px;
     font-size: larger;
-}
-
-#recursionDeep {
-    margin-left: 7px;
-    padding: 1%;
 }
 
 #checkBox {
