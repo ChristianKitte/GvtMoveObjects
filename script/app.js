@@ -1,11 +1,11 @@
 /**
- * Das Hauptmodul der Anwendung. Es steuert die Ausgabe der Modelle sowie deren Erzeugung und
+ * Das Hauptmodul der Anwendung. Es steuert die Ausgabe der model sowie deren Erzeugung und
  * ermöglciht eine Interaktion
  * @type {{start: start}}
  */
 var app = (function () {
     /**
-     * Eine Kollektion der aktuell auszugebenden Modelle
+     * Eine Kollektion der aktuell auszugebenden model
      * @type {*[]}
      */
     let models = [];
@@ -64,7 +64,7 @@ var app = (function () {
 
         switch (keyName) {
             case "ArrowUp": // ==> nach oben über die Szene
-                //camera.zAngle += Math.PI / 36;
+                            //camera.zAngle += Math.PI / 36;
                 camera.yAngle += deltaRotate;
                 //camera.eye
                 render();
@@ -180,117 +180,110 @@ var app = (function () {
     }
 
     /**
-     * Definiert Szenen, in dem es auf Basis des Paramters activeModel (configure.js) ein oder mehr Modelle erzeugt und
+     * Definiert Szenen, in dem es auf Basis des Paramters activeModel (configure.js) ein oder mehr model erzeugt und
      * zur Kollektion models hinhzufügt.
      */
     function initModels() {
-        if (activeModel === 0) {/*
+        if (activeModel === 0) {
             createModel(
                 "modSphere",
-                [0, 0, 0], [0, 0, 0], [0.3, 0.3, 0.3],
-                Math.PI / 1200, Math.PI / 640.0,
-                [40.0, -20.0, 0.0], [500.0, 500.0], Math.PI / 1200,
-                false, false);
+                [0, 0, 0],
+                [0, 1, 0], Math.PI / 32,
+                [10, 10, 10],
+                false, Math.PI / 500.0,
+                true, [0.0, 5, 0.0], [850.0, 300.0, 0.0], Math.PI / 100.0);
 
             createModel(
                 "modSphere",
-                [0, 0, 0], [0, 0, 0], [0.3, 0.3, 0.3],
-                Math.PI / 1200, Math.PI / 640.0,
-                [40.0, -20.0, 0.0], [500.0, 500.0], Math.PI / 1200,
-                false, false);
+                [1, 0.5, 0],
+                [0, 1, 0], Math.PI / 2,
+                [20, 20, 20],
+                false, 0,
+                true, [0.0, -5.0, 0.0], [800.0, 400.0, 0.0], Math.PI / 250.0);
 
             createModel(
                 "modSphere",
-                [-1.4, 0, 0], [0, 1, 0], [0.2, 0.2, 0.2],
-                Math.PI / 2.5, Math.PI / 640.0,
-                [-3.0, -3.0, -3.0], [150.0, 550.0], Math.PI / 200,
-                true, false);
+                [1, 0.5, 0],
+                [0, 0, 0], 0,
+                [20, 20, 20],
+                false, 0,
+                true, [1.0, 7.5, 0.1], [220.0, 300.0, 0.0], Math.PI / 120.0 * -1);
 
             createModel(
                 "modSphere",
-                [1, 0.5, 0], [1, 1, 0], [0.4, 0.4, 0.4],
-                Math.PI / 1200, Math.PI / 640.0,
-                [4.0, 0.1, 0.1], [440.0, 500.0], Math.PI / 300,
-                true, false)
+                [1, 0.5, 0],
+                [0, 0, 0], 0,
+                [40, 40, 40],
+                false, 0,
+                true, [1.0, 1.0, 0.1], [440.0, 200.0, 0.0], Math.PI / 250.0);
 
             createModel(
                 "modTorus",
-                [0, 0, 0], [1, -1, 0], [1, 1, 1],
-                0, Math.PI / 1000.0,
-                [0.0, 0.0, 0.0], [0.0, 0.0], 0.0,
-                false, true)*/
-
-            createModel(
-                "modSphere",
-                [0, 0, 0], [0, 0, 0], [0.3, 0.3, 0.3],
-                Math.PI / 640.0,
-                [500.0, 500.0,0.0], [40.0, -20.0, 0.0], , Math.PI / 1200,
-                false, false);
-
-            createModel(
-                "modSphere",
-                [0, 0, 0], [0, 0, 0], [0.3, 0.3, 0.3],
-                Math.PI / 1200, Math.PI / 640.0,
-                [40.0, -20.0, 0.0], [500.0, 500.0], Math.PI / 1200,
-                false, false);
-
-            createModel(
-                "modSphere",
-                [-1.4, 0, 0], [0, 1, 0], [0.2, 0.2, 0.2],
-                Math.PI / 2.5, Math.PI / 640.0,
-                [-3.0, -3.0, -3.0], [150.0, 550.0], Math.PI / 200,
-                true, false);
-
-            createModel(
-                "modSphere",
-                [1, 0.5, 0], [1, 1, 0], [0.4, 0.4, 0.4],
-                Math.PI / 1200, Math.PI / 640.0,
-                [4.0, 0.1, 0.1], [440.0, 500.0], Math.PI / 300,
-                true, false)
-
-            createModel(
-                "modTorus",
-                [0, 0, 0], [1, -1, 0], [1, 1, 1],
-                0, Math.PI / 1000.0,
-                [0.0, 0.0, 0.0], [0.0, 0.0], 0.0,
-                false, true)
+                [0, 0, 0],
+                [0, 1, 0], 0,
+                [100, 100, 100],
+                true, Math.PI / 500.0,
+                false, [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], 0);
         }
     }
 
     /**
-     * Steuert die Erzeugung eines Modells indem es für das geforderte Modell alle notwendigen
+     * Steuert die Erzeugung eines Modells, indem es für das geforderte Modell alle notwendigen
      * Initiierungen vornimmt (iniDataAndBuffer sowie iniTransformations). Das fertige Modell
      * wird in die Kollektion models eingefügt.
-     * @param modelName Der Modelname
-     * @param translate Die Translation (3D Vektor)
-     * @param rotate Die Rotation (3D Vektor)
-     * @param scale Die Skalierung (3D Vektor)
+     * @param modelName Der Name des Modells (entspricht dem Namen des Modellmoduls)
+     * @param translate Die initiale Translation des Modells. Geht von Mittelpunkt zu Mittelpunkt der Bewegung aus
+     * @param rotate Die Achsen, um die rotiert werden soll (einmalig oder bei turning = true).
+     * @param rotateBaseDegree Grad der initialen, einmaligen Rotation des Modells auf der in rotate festgelegten X, Y, Z Achse
+     * @param scale Die skalierung des Modells auf Basis einer um 1/100 rescalierten Basis
+     * @param performTurning True, wenn sich ein Modell kontinuierlich drehen (turningDegree)
+     * @param turningDegree Angabe der dauernden Drehung je Schritt im Bogenmaß auf der in rotate festgelegten X, Y, Z Achse (für turning = true)
+     * @param performOrbit True, wenn das Modell sich in einen Orbit kontinuierlich Bewegen soll
+     * @param orbitCenter Koordinaten des Mittelpunktes für den Orbit (für performOrbit = true)
+     * @param orbitRadius Radius des Orbits auf der X, Y, Z Achse, bezogen auf den Mittelpunkt bezogen (für performOrbit = true)
+     * @param orbitDegree Angabe der dauernden Bewegung je Schritt im Bogenmaß auf dem Orbit (für performOrbit = true)
      */
-    function createModel(modelName, translate, rotate, scale, rotateDegree, rotateCenter, rotateRadius, rotateSpeed, turning, animated) {
+    function createModel(
+        modelName = "",
+        translate = [0.0, 0.0, 0.0],
+        rotate = [0.0, 0.0, 0.0],
+        rotateBaseDegree = 0.0,
+        scale = [1.0, 1.0, 1.0],
+        performTurning = false,
+        turningDegree = 0.0,
+        performOrbit = false,
+        orbitCenter = [0.0, 0.0, 0.0],
+        orbitRadius = [0.0, 0.0, 0.0],
+        orbitDegree = 0.0) {
+
         let model = {};
 
-        initDataAndBuffers(model, modelName);
-        initTransformations(model, translate, rotate, scale, rotateIni, rotateSpeed, orbitCenter, orbitRadius, orbitSpeed, animated, rotated);
+        initDataAndBuffersForModel(model, modelName);
+
+        initTransformationsForModel(
+            model,
+            translate,
+            rotate,
+            rotateBaseDegree,
+            scale,
+            performTurning,
+            turningDegree,
+            performOrbit,
+            orbitCenter,
+            orbitRadius,
+            orbitDegree);
 
         models.push(model);
     }
-    /*
-    function createModel(modelName, translate, rotate, scale, rotateIni, rotateSpeed, orbitCenter, orbitRadius, orbitSpeed, animated, rotated) {
-        let model = {};
-
-        initDataAndBuffers(model, modelName);
-        initTransformations(model, translate, rotate, scale, rotateIni, rotateSpeed, orbitCenter, orbitRadius, orbitSpeed, animated, rotated);
-
-        models.push(model);
-    }*/
 
     /**
-     * Initiiert die Daten und Buffer. Hierbei definiert der Modellname ein Modell anhand seiner Klasse. Dies Modell
+     * Initiiert das Erzeugen eines neuen Modells und das Anlegen relevanter Eigenschaften für die beötigten
+     * Daten und Buffer. Hierbei definiert der Modellname ein Modell anhand seiner Klasse. Dies Modell
      * wird aus den verfügbaren Modellen erzeugt und dessen Vorgaben in das übergebenen Modell übergeben.
-     * @param model Das zu initiierende Modell
-     * @param modelName Das aus eienm Modul erzeugte Modell (Verzeichnis Modelle)
+     * @param model Das zu initiierende leere Modell
+     * @param modelName Referenz auf ein in einem Modul hinterlegten Modell und seinen Daten
      */
-    function initDataAndBuffers(model, modelName) {
+    function initDataAndBuffersForModel(model, modelName) {
         this[modelName]['createModellVertex'].apply(model);
 
         // Buffer für die Punkte erzeugen und laden
@@ -321,33 +314,58 @@ var app = (function () {
     }
 
     /**
-     * Fügt dem übertgebenen Modell Eigenschaften für Translate, Rotate und Scale Vector sowie für Model, View
+     * Fügt dem übergebenen Modell Eigenschaften für seine Positionierung, Skalierung und Animation hinzu. Zudem werden
+     * Eigenschaften für die interne Verwendung hinzugefügt
      * Scale Matrix hinzufügen
-     * @param model Das Modell
-     * @param translate Wert für Verschiebung
-     * @param rotate Wert für die Rotation
-     * @param scale Wert für die Skalierung
+     * @param model Eine Instanz des Modells
+     * @param translate Die initiale Translation des Modells. Geht von Mittelpunkt zu Mittelpunkt der Bewegung aus
+     * @param rotate Die Achsen, um die rotiert werden soll (einmalig oder bei turning = true).
+     * @param rotateBaseDegree Grad der initialen, einmaligen Rotation des Modells auf der in rotate festgelegten X, Y, Z Achse
+     * @param scale Die skalierung des Modells auf Basis einer um 1/100 rescalierten Basis
+     * @param performTurning True, wenn sich ein Modell kontinuierlich drehen (turningDegree)
+     * @param turningDegree Angabe der dauernden Drehung je Schritt im Bogenmaß auf der in rotate festgelegten X, Y, Z Achse (für turning = true)
+     * @param performOrbit True, wenn das Modell sich in einen Orbit kontinuierlich Bewegen soll
+     * @param orbitCenter Koordinaten des Mittelpunktes für den Orbit (für performOrbit = true)
+     * @param orbitRadius Radius des Orbits auf der X, Y, Z Achse, bezogen auf den Mittelpunkt bezogen (für performOrbit = true)
+     * @param orbitDegree Angabe der dauernden Bewegung je Schritt im Bogenmaß auf dem Orbit (für performOrbit = true)
      */
-    function initTransformations(model, translate, rotate, scale, rotateIni, rotateSpeed, orbitCenter, orbitRadius, orbitSpeed, animated, rotated) {
+    function initTransformationsForModel(
+        model = {},
+        translate = [0.0, 0.0, 0.0],
+        rotate = [0.0, 0.0, 0.0],
+        rotateBaseDegree = 0.0,
+        scale = [1.0, 1.0, 1.0],
+        performTurning = false,
+        turningDegree = 0.0,
+        performOrbit = false,
+        orbitCenter = [0.0, 0.0, 0.0],
+        orbitRadius = [0.0, 0.0, 0.0],
+        orbitDegree = 0.0) {
+
+        // Positionierung des Modells
         model.translate = translate;
-
         model.rotate = rotate;
-        model.rotateIni = rotateIni;
-        model.rotateSpeed = rotateSpeed;
-
+        model.rotateBaseDegree = rotateBaseDegree;
         model.scale = scale;
 
+        // Rotation des Modells
+        model.performTurning = performTurning;
+        model.turningDegree = turningDegree;
+
+        // Kreisbewegung des Modells
+        model.performOrbit = performOrbit;
         model.orbitCenter = orbitCenter;
         model.orbitRadius = orbitRadius;
-        model.orbitSpeed = orbitSpeed;
+        model.orbitDegree = orbitDegree;
 
-        model.animated = animated;
-        model.rotated = rotated;
-
-        model.degreeAlt = 0.0;
+        // Berechnungsvariablen und Zustände für das Modell
+        model.currentTurningDegree = 0.0;
+        model.currentOrbitDegree = 0.0;
         model.xAlt = 0.0;
         model.yAlt = 0.0;
+        model.zAlt = 0.0;
 
+        // Matrizen des Modells
         model.modelMatrix = glMatrix.mat4.create();
         model.viewMatrix = glMatrix.mat4.create();
         model.scaleMatrix = glMatrix.mat4.create();
@@ -355,7 +373,7 @@ var app = (function () {
 
     /**
      * Konfiguriert und setzt die Matrizen für Model, View und Projektion und Triggert die
-     * Ausgabe der aktuellen Modelle einer Szene
+     * Ausgabe der aktuellen model einer Szene
      */
     function render() {
         // Löschen der alten Ausgabe
@@ -367,7 +385,7 @@ var app = (function () {
         // konfiguriert und setzt die globale Viewmatrix der Kamera (View Matrix)
         setCameraViewMatrix();
 
-        // Alle Modelle durchlaufen, Eigenschaften für Rotation, Scale und Translation für das
+        // Alle model durchlaufen, Eigenschaften für Rotation, Scale und Translation für das
         // jeweils aktuelle Modell aktualisieren und das Modell ausgeben
         for (var i = 0; i < models.length; i++) {
             // Erstellt und setzt die Model Matrix für das aktuelle Modell nach den aktuell eingestellten Werten
@@ -426,43 +444,28 @@ var app = (function () {
      */
     function setModelTransformationForModel(model) {
         let mMatrix = model.modelMatrix;
-
         glMatrix.mat4.identity(mMatrix);
 
         // Scale
-        glMatrix.mat4.scale(mMatrix, mMatrix, model.scale);
+        let reScaled = [model.scale[0] / 100.0, model.scale[1] / 100.0, model.scale[2] / 100.0];
+        glMatrix.mat4.scale(mMatrix, mMatrix, reScaled);
 
         // Rotate
-        if (model.rotated) {
-            model.rotateIni += model.rotateSpeed;
-            glMatrix.mat4.rotate(mMatrix, mMatrix, model.rotateIni, model.rotate);
-        } else if (animateScene) { // einmaliges Drehen um die in rotate definierte Achse
-            glMatrix.mat4.rotate(mMatrix, mMatrix, model.rotateIni, model.rotate);
+        if (model.performTurning) { // permanente Drehbewegung um turningDegree in die in rotate definierten Achsen
+            model.currentTurningDegree += model.turningDegree;
+            glMatrix.mat4.rotate(mMatrix, mMatrix, model.currentTurningDegree, model.rotate);
+        } else { // einmaliges Drehen um rotateBaseDegree in die in rotate definierten Achsen
+            glMatrix.mat4.rotate(mMatrix, mMatrix, model.rotateBaseDegree, model.rotate);
         }
 
         // Translate.
-        //glMatrix.mat4.translate(mMatrix, mMatrix, model.translate);
-
-        /*
-                    w += dw;
-
-            let x = r * Math.cos(w) + 40;
-            let y = r * Math.sin(w) - 20;
-            let xx = x - xalt;
-            let yy = y - yalt;
-
-            glMatrix.mat4.translate(mMatrix, mMatrix, [xx, yy, 0]);
-            xalt = x;
-            yalt = y;
-         */
-
-        if (model.animated) {
+        if (model.performOrbit) {
             glMatrix.mat4.translate(mMatrix, mMatrix, model.translate);
 
-            model.degreeAlt += model.orbitSpeed;
+            model.currentOrbitDegree += model.orbitDegree;
 
-            let x = model.orbitRadius[0] * Math.cos(model.degreeAlt) - model.orbitCenter[0];
-            let y = model.orbitRadius[1] * Math.sin(model.degreeAlt) - model.orbitCenter[1];
+            let x = model.orbitRadius[0] * Math.cos(model.currentOrbitDegree) - model.orbitCenter[0];
+            let y = model.orbitRadius[1] * Math.sin(model.currentOrbitDegree) - model.orbitCenter[1];
 
             let newX = x - model.xAlt;
             let newY = y - model.yAlt;
@@ -510,7 +513,6 @@ var app = (function () {
     function rotate() {
         if (models.length > 0) {
             render();
-            //setInterval(rotate, animationRate);
 
             if (animateScene) {
                 window.requestAnimationFrame(rotate);

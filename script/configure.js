@@ -29,8 +29,17 @@ projektionsText.innerText = "Projektionstyp: Orthogonal";
 
 //*************************************************************************
 // 3th Party
+//
+// Start der Animation
+// http://www.javascriptkit.com/javatutors/requestanimationframe.shtml
+// https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+//
 //*************************************************************************
 
+/**
+ * Implement requestAnimationFrame
+ * @type {((callback: FrameRequestCallback) => number)|*|(function(*): number)}
+ */
 window.requestAnimationFrame = window.requestAnimationFrame
     || window.mozRequestAnimationFrame
     || window.msRequestAnimationFrame
@@ -38,6 +47,10 @@ window.requestAnimationFrame = window.requestAnimationFrame
         return setTimeout(f, 1000 / 60)
     } // simulate calling code 60
 
+/**
+ * Implement cancelAnimationFrame
+ * @type {((handle: number) => void)|*|(function(*): void)}
+ */
 window.cancelAnimationFrame = window.cancelAnimationFrame
     || window.mozCancelAnimationFrame
     || function (requestID) {
